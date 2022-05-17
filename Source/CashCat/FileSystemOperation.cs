@@ -10,10 +10,7 @@ namespace CashCat
 {
     public class FileSystemOperation
     {
-        /// <summary>
-        /// File System Interactions
-        /// </summary>
-        /// 
+        
 
         private RansomFiles RandomwareFileList = new RansomFiles();
 
@@ -115,9 +112,7 @@ namespace CashCat
         public void LockTXTFile(FileInfo file, string extension)
         {
             string oldfilename = file.Name;
-
-            // todo optional mode? 
-            //string newExtension = RandomwareFileList.GetRandomFileExtension();
+            
 
             string newExtension = extension;
 
@@ -132,25 +127,21 @@ namespace CashCat
             }
             catch
             {
-                //can't touch this
             }
         }
 
 
         public void UnlockRansomwareFile(FileInfo file)
         {
-            //Console.WriteLine(file.Name);
               
-          
+ 
             string newfilename = (file.Name).Replace(file.Extension, ".txt");
-            // string newfilefullname = (file.FullName).Replace(".locky", ".txt");
             try
             {
                 System.IO.File.Move(file.Name, newfilename);
             }
             catch
             {
-                //can't touch this
             }
         }
 
